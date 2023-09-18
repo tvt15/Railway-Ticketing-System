@@ -1,0 +1,11 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Admins</h1>
+
+<div id="admins">
+  <% @admins.each do |admin| %>
+    <%= render admin %>
+  <% end %>
+</div>
+
+<%= link_to "Show passengers", pshow_route_path %>

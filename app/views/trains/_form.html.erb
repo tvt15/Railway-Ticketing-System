@@ -1,0 +1,67 @@
+<%= form_with(model: train) do |form| %>
+  <% if train.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(train.errors.count, "error") %> prohibited this train from being saved:</h2>
+
+      <ul>
+        <% train.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :train_number, style: "display: block" %>
+    <%= form.text_field :train_number %>
+  </div>
+
+  <div>
+    <%= form.label :departure_station, style: "display: block" %>
+    <%= form.text_field :departure_station %>
+  </div>
+
+  <div>
+    <%= form.label :termination_station, style: "display: block" %>
+    <%= form.text_field :termination_station %>
+  </div>
+
+  <div>
+    <%= form.label :departure_date, style: "display: block" %>
+    <%= form.date_field :departure_date %>
+  </div>
+
+  <div>
+    <%= form.label :departure_time, style: "display: block" %>
+    <%= form.time_field :departure_time %>
+  </div>
+
+  <div>
+    <%= form.label :arrival_date, style: "display: block" %>
+    <%= form.date_field :arrival_date %>
+  </div>
+
+  <div>
+    <%= form.label :arrival_time, style: "display: block" %>
+    <%= form.time_field :arrival_time %>
+  </div>
+
+  <div>
+    <%= form.label :ticket_price, style: "display: block" %>
+    <%= form.text_field :ticket_price %>
+  </div>
+
+  <div>
+    <%= form.label :train_capacity, style: "display: block" %>
+    <%= form.number_field :train_capacity %>
+  </div>
+
+  <div>
+    <%= form.label :seats_left, style: "display: block" %>
+    <%= form.number_field :seats_left %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

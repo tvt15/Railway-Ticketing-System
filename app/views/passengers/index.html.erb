@@ -1,0 +1,33 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Passengers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email address</th>
+      <th>Address</th>
+      <th>Phone number</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @passengers.each do |passenger| %>
+      <tr>
+        <td><%= passenger.name %></td>
+        <td><%= passenger.email_address %></td>
+        <td><%= passenger.address %></td>
+        <td><%= passenger.phone_number %></td>
+        <td><%= link_to 'Show', passenger %></td>
+        <td><%= link_to 'Edit', edit_passenger_path(passenger) %></td>
+        <td><%= link_to 'Destroy', passenger, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New passenger', new_passenger_path %>

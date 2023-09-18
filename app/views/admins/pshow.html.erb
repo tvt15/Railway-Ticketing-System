@@ -1,0 +1,22 @@
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Address</th>
+    <th>Credit card</th>
+  </tr>
+
+<% Passenger.all.each do |passenger| %>
+  <tr>
+    <td><%= passenger.name %></td>
+    <td><%= passenger.email %></td>
+    <td><%= passenger.phone %></td>
+    <td><%= passenger.address %></td>
+    <td><%= passenger.credit_card %></td>
+    <td><%= link_to 'Show', passenger %></td>
+    <td><%= link_to 'Edit', edit_passenger_path(passenger) %></td>
+    <td><%= link_to 'Destroy', passenger, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
