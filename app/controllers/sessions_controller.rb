@@ -20,19 +20,12 @@ class SessionsController < ApplicationController
   
 
   def destroy
-    # admin_user = Admin.find_by_email(params[:email])
-    # passenger_user = Passenger.find_by_email(params[:email])
-    # if admin_user && admin_user.authenticate(params[:password])
-    #   format.html(redirect_to admins_path(@admin), notice: "Cannot delete admin")
-    #   redirect_to root_path
-    # elsif passenger_user && passenger_user.authenticate(params[:password])
     if session[:admin_id] 
       session[:admin_id] = nil
     elsif session[:passenger_id]
       session[:passenger_id] = nil
     end
     redirect_to root_path
-    
     
   end
 end

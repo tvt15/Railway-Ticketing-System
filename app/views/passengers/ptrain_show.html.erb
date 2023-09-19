@@ -1,0 +1,40 @@
+<table>
+  <tr>
+    <th>Train number</th>
+    <th>Departure station</th>
+    <th>Termination station</th>
+    <th>Departure date</th>
+    <th>Departure time</th>
+    <th>Arrival date</th>
+    <th>Arrival time</th>
+    <th>Ticket price</th>
+    <th>Train capacity</th>
+    <th>Seats left</th>
+
+  </tr>
+
+
+
+<% Train.all.each do |train| %>
+  <% if train.seats_left > 0 %>
+    <tr>
+      <td><%= train.train_number %></td>
+      <td><%= train.departure_station %></td>
+      <td><%= train.termination_station %></td>
+      <td><%= train.departure_date %></td>
+      <td><%= train.departure_time %></td>
+      <td><%= train.arrival_date %></td>
+      <td><%= train.arrival_time %></td>
+      <td><%= train.ticket_price %></td>
+      <td><%= train.train_capacity %></td>
+      <td><%= train.seats_left %></td>
+
+      <td><%= link_to 'Show', train %></td>
+      <td><%= link_to 'Edit', edit_train_path(train) %></td>
+      <td><%= link_to 'Destroy', train, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+<% end %>
+</table>
+
+<%= link_to 'Back', passengers_path %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_18_231435) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_19_182250) do
   create_table "admins", force: :cascade do |t|
     t.string "username"
     t.string "name"
@@ -43,7 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_18_231435) do
     t.datetime "updated_at", null: false
     t.integer "passenger_id", null: false
     t.integer "train_id", null: false
-    t.integer "admin_id", null: false
+    t.integer "admin_id", default: 1, null: false
     t.index ["admin_id"], name: "index_reviews_on_admin_id"
     t.index ["passenger_id"], name: "index_reviews_on_passenger_id"
     t.index ["train_id"], name: "index_reviews_on_train_id"
@@ -55,7 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_18_231435) do
     t.datetime "updated_at", null: false
     t.integer "passenger_id", null: false
     t.integer "train_id", null: false
-    t.integer "admin_id", null: false
+    t.integer "admin_id", default: 1, null: false
     t.index ["admin_id"], name: "index_tickets_on_admin_id"
     t.index ["passenger_id"], name: "index_tickets_on_passenger_id"
     t.index ["train_id"], name: "index_tickets_on_train_id"
@@ -74,7 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_18_231435) do
     t.integer "seats_left"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "admin_id", null: false
+    t.integer "admin_id", default: 1, null: false
     t.index ["admin_id"], name: "index_trains_on_admin_id"
   end
 
