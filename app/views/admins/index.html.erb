@@ -1,6 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Admins</h1>
+<h1>Admins Dashboard</h1>
 
 <div id="admins">
   <% @admins.each do |admin| %>
@@ -8,4 +8,8 @@
   <% end %>
 </div>
 
-<%= link_to "Show passengers", pshow_route_path %>
+<%= link_to "Show Passengers", passenger_show_route_path %>
+<%= link_to "Show Trains", train_show_route_path %>
+<%= link_to "Show Tickets", ticket_show_route_path %>
+<%= link_to "Show Reviews", review_show_route_path %>
+

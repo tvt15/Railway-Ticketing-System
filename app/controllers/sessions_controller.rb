@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :authorized, only: [:new, :create]
+  skip_before_action :authorized, only: [:pnew,:anew, :create]
   def new
   end
 
@@ -11,12 +11,13 @@ class SessionsController < ApplicationController
       redirect_to admins_path
     elsif passenger_user && passenger_user.authenticate(params[:password])
       session[:passenger_id] = passenger_user.id
-      redirect_to root_url
+      redirect_to passengers_path
     else
       flash.now[:alert] = "Email or password is invalid"
       render "new"
     end
   end
+  
 
   def destroy
     session[:admin_id] = nil

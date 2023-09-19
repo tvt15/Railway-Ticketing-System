@@ -6,3 +6,6 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 Admin.create!(username: "Admin", name: "NewAdmin",email: "admin.com", password_digest: BCrypt::Password.create('123'), phone:1234567890, address:"abcd", credit_number:123)
+# require 'database_cleaner'
+
+# DatabaseCleaner.clean_with(:truncation)

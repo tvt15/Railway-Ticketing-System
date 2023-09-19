@@ -1,0 +1,20 @@
+<table>
+  <tr>
+    <th>Passenger ID</th>
+    <th>Train ID</th>
+    <th>Confirmation Number</th>
+    <th>Booked on</th>
+  </tr>
+
+<% Ticket.all.each do |ticket| %>
+  <tr>
+    <td><%= ticket.passenger_id %></td>
+    <td><%= ticket.train_id %></td>
+    <td><%= ticket.confirmation_number %></td>
+    <td><%= ticket.created_at %></td>
+    <td><%= link_to 'Show', ticket %></td>
+    <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
+    <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
