@@ -1,6 +1,6 @@
 class PassengersController < ApplicationController
-  # skip_before_action :authorized, only: [:new, :create]
-  before_action :set_user, only: %i[ show edit update destroy ]
+  skip_before_action :authorized, only: [:new, :create]
+  before_action :set_passenger, only: %i[ show edit update destroy ]
 
   # GET /passengers or /passengers.json
   def index
@@ -51,9 +51,9 @@ class PassengersController < ApplicationController
   # DELETE /passengers/1 or /passengers/1.json
   def destroy
     @passenger.destroy
-
+    session[:passenger_id] = nil
     respond_to do |format|
-      format.html { redirect_to passengers_url, notice: "Passenger was successfully destroyed." }
+      format.html { redirect_to root_path, notice: "Passenger was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -61,11 +61,11 @@ class PassengersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_passenger
-      @passenger = Passenger.find(params[:email])
+      @passenger = Passenger.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def passenger_params
-      params.require(:passenger).permit(:name, :email, :password_digest, :phone, :address, :credit_card)
+      params.require(:passenger).permit(:name, :email, :password, :phone, :address, :credit_card)
     end
 end

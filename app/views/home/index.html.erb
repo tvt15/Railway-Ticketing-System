@@ -1,18 +1,9 @@
 <p id=”notice”><%= notice %></p>
 <h1>Rail Ticketing System</h1>
 
-<% if current_user%>
-  Logged in as <%= current_user.name %>.
+<h3>Admin</h3>
+<%= link_to "Login", alogin_path %>
+<h3>Passenger</h3>
+<%= link_to "Signup", signup_path %> or
+<%= link_to "Login", plogin_path %>
   
-  <%= link_to "Logout", logout_path %>
-# <% elsif current_user && current_user.passenger? %>
-#   <!-- This content will be displayed if the current user is a passenger -->
-#   <p>Welcome, Passenger!</p>
-<% else %>
-  <h3>Admin</h3>
-  <%= link_to "Login", alogin_path %>
-  <h3>Passenger</h3>
-  <%= link_to "Signup", signup_path %> or
-  <%= link_to "Login", plogin_path %>
-  
-<% end %>

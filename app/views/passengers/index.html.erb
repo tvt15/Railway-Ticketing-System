@@ -1,27 +1,33 @@
 <p style="color: green"><%= notice %></p>
-
-<h1>Passengers</h1>
+<% passenger_user = Passenger.find(session[:passenger_id]) %>
+<h1>Welcome <%=passenger_user.name %> !</h1>
 
 <table>
   <thead>
     <tr>
       <th>Name</th>
-      <th>Email address</th>
+      <th>Email</th>
       <th>Address</th>
-      <th>Phone number</th>
+      <th>Phone</th>
       
     </tr>
   </thead>
 
   <tbody>
-      <tr>
-      <td><%= Passenger.passenger_user.name %></td>
-      </tr>
   
+      <tr>
+      <td><%=passenger_user.name %></td>
+      <td><%=passenger_user.email %></td>
+      <td><%=passenger_user.address %></td>
+      <td><%=passenger_user.phone %></td>
+
+      </tr>
+
   </tbody>
 </table>
 
+    <td><%= link_to 'Edit profile', edit_passenger_path(passenger_user) %></td>
+    <td><%= link_to 'Destroy', passenger_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Logout', logout_path %></td>
+
 <br>
-
-
-<%= link_to 'New passenger', new_passenger_path %>

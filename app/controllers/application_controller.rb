@@ -8,8 +8,11 @@ class ApplicationController < ActionController::Base
   def current_user
     if session[:admin_id]
       @current_user ||= Admin.find(session[:admin_id])
+    elsif session[:passenger_id]
+      @current_user ||= Passenger.find(session[:passenger_id])
     else
       @current_user = nil
+
     end
   end
 

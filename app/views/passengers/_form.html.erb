@@ -1,4 +1,4 @@
-<%= form_with(model: passenger) do |form| %>
+<%= form_with(model: passenger, local:true) do |form| %>
   <% if passenger.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(passenger.errors.count, "error") %> prohibited this passenger from being saved:</h2>
