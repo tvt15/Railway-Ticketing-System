@@ -25,7 +25,7 @@ class TrainsController < ApplicationController
 
     respond_to do |format|
       if @train.save
-        format.html { redirect_to train_show, notice: "Train was successfully created." }
+        format.html { redirect_to train_show_route_path, notice: "Train was successfully created." }
         format.json { render :show, status: :created, location: @train }
       else
         format.html { render :new, status: :unprocessable_entity }

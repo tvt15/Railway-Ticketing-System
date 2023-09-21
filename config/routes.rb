@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   get 'review_show_route', to: 'admins#review_show', as: 'review_show_route'
 
   get 'ptrain_show_route', to: 'passengers#ptrain_show', as: 'ptrain_show_route'
-  get get 'newtrain', to: "trains#new", as: 'newtrain'
+  get 'newtrain', to: "trains#new", as: 'newtrain'
+  get 'newticket', to: "tickets#new", as: 'newticket'
+
   resources :sessions, only: [:new, :create, :destroy]
   get 'signup', to: "passengers#new", as: 'signup'
   get 'alogin', to: "sessions#anew", as: 'alogin'

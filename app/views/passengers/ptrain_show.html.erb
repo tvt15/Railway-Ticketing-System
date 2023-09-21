@@ -12,8 +12,7 @@
     <th>Seats left</th>
 
   </tr>
-
-
+<% passenger_user = Passenger.find(session[:passenger_id]) %>
 
 <% Train.all.each do |train| %>
   <% if train.seats_left > 0 %>
@@ -28,10 +27,12 @@
       <td><%= train.ticket_price %></td>
       <td><%= train.train_capacity %></td>
       <td><%= train.seats_left %></td>
-
-      <td><%= link_to 'Show', train %></td>
-      <td><%= link_to 'Edit', edit_train_path(train) %></td>
-      <td><%= link_to 'Destroy', train, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% if Ticket.find_by(passenger_id: passenger_user.id, train_id:train.id) %>
+        <th> Ticket Booked!! </th>
+      <% else %>
+        <td><%= link_to 'Book train', newticket_path(:train_id => train.id) %></td>
+      <% end %>
+      <td>  <%= button_to "Cancel this ticket", Ticket.find_by(passenger_id: passenger_user.id, train_id:train.id), method: :delete %></td>
     </tr>
   <% end %>
 <% end %>

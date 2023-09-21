@@ -1,6 +1,5 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: %i[ show edit update destroy ]
-
   # GET /tickets or /tickets.json
   def index
     @tickets = Ticket.all
@@ -13,20 +12,28 @@ class TicketsController < ApplicationController
   # GET /tickets/new
   def new
     @ticket = Ticket.new
+    if @train.nil?
+      @train = Train.find(params[:train_id])
+    end
   end
-
   # GET /tickets/1/edit
   def edit
   end
 
   # POST /tickets or /tickets.json
   def create
+    pid = Passenger.find(session[:passenger_id])
     @ticket = Ticket.new(ticket_params)
+    @ticket.passenger_id = pid.id
+    @ticket.confirmation_number = Array.new(10){[*"A".."Z", *"0".."9"].sample}.join
+    @train = Train.find_by(id: @ticket[:train_id])
+    @train.seats_left = @train.seats_left - 1
+    @train.save
 
     respond_to do |format|
       if @ticket.save
-        format.html { redirect_to ticket_url(@ticket), notice: "Ticket was successfully created." }
-        format.json { render :show, status: :created, location: @ticket }
+        format.html { redirect_to ticket_url(@ticket), notice: "Ticket was booked successfully." }
+        format.json { render ticket_url(@ticket), status: :created, location: @ticket }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @ticket.errors, status: :unprocessable_entity }
@@ -49,10 +56,13 @@ class TicketsController < ApplicationController
 
   # DELETE /tickets/1 or /tickets/1.json
   def destroy
+    @train = Train.find_by(id: @ticket[:train_id])
+    @train.seats_left = @train.seats_left + 1
+    @train.save
     @ticket.destroy
 
     respond_to do |format|
-      format.html { redirect_to tickets_url, notice: "Ticket was successfully destroyed." }
+      format.html { redirect_to tickets_url, notice: "Ticket was successfully cancelled." }
       format.json { head :no_content }
     end
   end
@@ -63,8 +73,8 @@ class TicketsController < ApplicationController
       @ticket = Ticket.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    #Only allow a list of trusted parameters through.
     def ticket_params
-      params.require(:ticket).permit(:confirmation_number)
+      params.require(:ticket).permit(:train_id)   
     end
 end
