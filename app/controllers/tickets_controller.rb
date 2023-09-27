@@ -18,6 +18,9 @@ class TicketsController < ApplicationController
   end
   # GET /tickets/1/edit
   def edit
+    if @train.nil?
+      @train = Train.find(params[:train_id])
+    end
   end
 
   # POST /tickets or /tickets.json
@@ -59,6 +62,8 @@ class TicketsController < ApplicationController
     @train = Train.find_by(id: @ticket[:train_id])
     @train.seats_left = @train.seats_left + 1
     @train.save
+    @review = Review.find_by(train_id: @train[:id])
+    @review.destroy
     @ticket.destroy
 
     respond_to do |format|

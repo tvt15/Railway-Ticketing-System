@@ -3,7 +3,11 @@
 <div id="tickets">
   
     <p>
-      <%= link_to "Back to trains", ptrain_show_route_path %>
+    <% if session[:passenger_id] != nil %>
+    <%= link_to "Back to trains", pbooking_show_route_path %>
+    <%else%>
+    <th><%= link_to 'Back to tickets', ticket_show_route_path %></th>
+    <%end%>
     </p>
  
 </div>

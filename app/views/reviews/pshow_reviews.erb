@@ -7,15 +7,15 @@
   </tr>
 
 <% Review.all.each do |review| %>
+    <% if review.passenger_id == session[:passenger_id] %>  
   <tr>
     <td><%= review.rating %></td>
     <td><%= review.feedback %></td>
     <td><%= review.passenger_id %></td>
     <td><%= review.train_id %></td>
-    <td><%= link_to 'Show', review %></td>
-    <th> <%= link_to "Edit", edit_review_path(review, :train_id => review.train_id) %></th>
-    <td><%= link_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <th> <%= link_to "Update", edit_review_path(review, :train_id => review.train_id) %></th>
   </tr>
+  <%end%>
 <% end %>
 </table>
-<%= link_to 'Back to dashboard', admins_path %>
+<%= link_to 'Back', passengers_path %>

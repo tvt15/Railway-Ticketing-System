@@ -11,9 +11,12 @@ Rails.application.routes.draw do
   get 'ticket_show_route', to: 'admins#ticket_show', as: 'ticket_show_route'
   get 'review_show_route', to: 'admins#review_show', as: 'review_show_route'
 
+  get 'booking_show_route', to: 'passengers#booking_show', as: 'booking_show_route'
   get 'ptrain_show_route', to: 'passengers#ptrain_show', as: 'ptrain_show_route'
+  get 'pshow_reviews_route', to: 'reviews#pshow_reviews', as: 'pshow_reviews_route'
   get 'newtrain', to: "trains#new", as: 'newtrain'
   get 'newticket', to: "tickets#new", as: 'newticket'
+  get 'newreview', to: "reviews#new", as: 'newreview'
 
   resources :sessions, only: [:new, :create, :destroy]
   get 'signup', to: "passengers#new", as: 'signup'

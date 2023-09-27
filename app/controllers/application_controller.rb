@@ -12,8 +12,9 @@ class ApplicationController < ActionController::Base
       @current_user ||= Passenger.find(session[:passenger_id])
     else
       @current_user = nil
-
+    
     end
+    
   end
 
   def logged_in?

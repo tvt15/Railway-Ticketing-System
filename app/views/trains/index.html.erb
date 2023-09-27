@@ -3,12 +3,8 @@
 <h1>Trains</h1>
 
 <div id="trains">
-  <% @trains.each do |train| %>
-    <%= render train %>
-    <p>
-      <%= link_to "Show this train", train %>
-    </p>
-  <% end %>
+
+<th><%= link_to 'Back to trains', train_show_route_path %></th>
+
 </div>
 
-<%= link_to "New train", new_train_path %>

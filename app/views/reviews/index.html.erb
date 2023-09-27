@@ -1,14 +1,13 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Reviews</h1>
-
-<div id="reviews">
-  <% @reviews.each do |review| %>
-    <%= render review %>
+<div id="review">
+  
     <p>
-      <%= link_to "Show this review", review %>
+    <% if session[:passenger_id] != nil %>
+    <%= link_to "Back to trains", booking_show_route_path %>
+  <%else%>
+    <th><%= link_to 'Back to reviews', review_show_route_path %></th>
+  <%end%>
     </p>
-  <% end %>
+ 
 </div>
-
-<%= link_to "New review", new_review_path %>

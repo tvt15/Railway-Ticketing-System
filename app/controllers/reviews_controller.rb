@@ -13,15 +13,24 @@ class ReviewsController < ApplicationController
   # GET /reviews/new
   def new
     @review = Review.new
+    if @train.nil?
+      @train = Train.find(params[:train_id])
+    end
   end
 
   # GET /reviews/1/edit
   def edit
+    if @train.nil?
+      @train = Train.find(params[:train_id])
+    end
   end
 
   # POST /reviews or /reviews.json
   def create
+    pid = Passenger.find(session[:passenger_id])
     @review = Review.new(review_params)
+    @review.passenger_id = pid.id
+    @train = Train.find_by(id: @review[:train_id])
 
     respond_to do |format|
       if @review.save
@@ -65,6 +74,6 @@ class ReviewsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def review_params
-      params.require(:review).permit(:rating, :feedback)
+      params.require(:review).permit(:rating, :feedback, :train_id)
     end
 end

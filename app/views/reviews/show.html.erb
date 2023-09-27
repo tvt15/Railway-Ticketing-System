@@ -3,8 +3,19 @@
 <%= render @review %>
 
 <div>
-  <%= link_to "Edit this review", edit_review_path(@review) %> |
-  <%= link_to "Back to reviews", reviews_path %>
-
+  <%= link_to "Edit this review", edit_review_path(@review) %> 
+  <br>
+  <br>
   <%= button_to "Destroy this review", @review, method: :delete %>
+  <br>
+  
+  <% if session[:passenger_id] != nil %>
+    <%= link_to "Back to trains", booking_show_route_path %>
+  <%else%>
+    <th><%= link_to 'Back to reviews', review_show_route_path %></th>
+  <%end%>
+    
+    
+
+
 </div>
