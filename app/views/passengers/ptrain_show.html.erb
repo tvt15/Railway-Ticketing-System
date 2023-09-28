@@ -11,6 +11,8 @@
     <th>Train capacity</th>
     <th>Seats left</th>
     <th>Average Rating</th>
+    <th>Show Reviews</th>
+
 
   </tr>
 <% passenger_user = Passenger.find(session[:passenger_id]) %>
@@ -30,6 +32,8 @@
       <td><%= train.seats_left %></td>
       <%review = Review.where(:train_id => train.id)%>
       <td><%= review.average(:rating).to_i %></td>
+      <td><%= link_to 'Train reviews', search_review_by_train_number_path(:train_number => train.train_number) %></td>
+
       <% if Ticket.find_by(passenger_id: passenger_user.id, train_id:train.id) %>
         <th> Ticket Booked!! </th>
       <% else %>

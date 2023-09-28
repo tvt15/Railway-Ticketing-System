@@ -70,9 +70,9 @@ class ReviewsController < ApplicationController
 def search_review_by_train_number
   if params[:train_number].blank?
     if session[:passenger_id] != nil
-      redirect_to review_show_route_path and return
-    else
       redirect_to passengers_path and return
+    else
+      redirect_to review_show_route_path and return
     end
   else
     @result_reviews = Array.new
@@ -91,9 +91,9 @@ end
 def search_review_by_passenger_name
   if params[:passenger_name].blank?
     if session[:passenger_id] != nil
-      redirect_to review_show_route_path and return
-    else
       redirect_to passengers_path and return
+    else
+      redirect_to review_show_route_path and return
     end
   else
     @result_reviews_passenger = Array.new
