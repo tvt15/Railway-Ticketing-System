@@ -66,6 +66,48 @@ class ReviewsController < ApplicationController
     end
   end
 
+# Filter by train number for all reviews 
+def search_review_by_train_number
+  if params[:train_number].blank?
+    if session[:passenger_id] != nil
+      redirect_to review_show_route_path and return
+    else
+      redirect_to passengers_path and return
+    end
+  else
+    @result_reviews = Array.new
+    @reviews = Review.all
+    @reviews.each do |review|
+      @train = Train.find_by_id(review.train_id)
+      if @train && @train.train_number == params[:train_number]
+        @result_reviews.append(review)
+      end
+    end
+    puts @result_reviews
+  end
+end
+
+# Filter by train number for all reviews 
+def search_review_by_passenger_name
+  if params[:passenger_name].blank?
+    if session[:passenger_id] != nil
+      redirect_to review_show_route_path and return
+    else
+      redirect_to passengers_path and return
+    end
+  else
+    @result_reviews_passenger = Array.new
+    @reviews = Review.all
+    @reviews.each do |review|
+      @passenger = Passenger.find_by_id(review.passenger_id)
+      if @passenger && @passenger.name == params[:passenger_name]
+        @result_reviews_passenger.append(review)
+      end
+    end
+    puts @result_reviews_passenger
+  end
+end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_review

@@ -1,0 +1,37 @@
+<table>
+  <tr>
+    <th>Rating</th>
+    <th>Feedback</th>
+    <th>Passenger Name</th>
+    <th>Train Number</th>
+  </tr>
+
+<% @result_reviews_passenger.each do |review| %>
+  <tr>
+    <td><%= review.rating %></td>
+    <td><%= review.feedback %></td>
+    <td><%= Passenger.find(review.passenger_id).name %></td>
+    <td><%= Train.find(review.train_id).train_number %></td>
+    <td><%= link_to 'Show', review %></td>
+    <th> <%= link_to "Edit", edit_review_path(review, :train_id => review.train_id) %></th>
+    <td><%= link_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+<br>
+<br>
+<%= form_tag(search_review_by_passenger_name_path, :method => "get") do %>
+    <div class="input-group">
+      <%= search_field_tag :passenger_name, params[:passenger_name], placeholder: "Enter Passenger Name", class: "form-control" %>
+      <div class="input-group-btn">
+        <%= button_tag "Search", :class =>'btn btn-info glyphicon glyphicon-search', :auth_name => nil %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if session[:passenger_id] != nil %>
+    <%= link_to "Back to trains", booking_show_route_path %>
+  <%else%>
+    <th><%= link_to 'Back to reviews', review_show_route_path %></th>
+  <%end%>
+    
