@@ -13,12 +13,12 @@
 
   <div>
     <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, required:true %>
   </div>
 
   <div>
     <%= form.label :email, style: "display: block" %>
-    <%= form.text_field :email %>
+    <%= form.text_field :email, required: true %>
   </div>
 
   <div>
@@ -28,17 +28,17 @@
 
   <div>
     <%= form.label :phone, style: "display: block" %>
-    <%= form.text_field :phone %>
+    <%= form.text_field :phone, required: true %>
   </div>
 
   <div>
     <%= form.label :address, style: "display: block" %>
-    <%= form.text_field :address %>
+    <%= form.text_field :address, required: true %>
   </div>
 
   <div>
     <%= form.label :credit_card, style: "display: block" %>
-    <%= form.text_field :credit_card %>
+    <%= form.text_field :credit_card, required: true %>
   </div>
 
   <div>
