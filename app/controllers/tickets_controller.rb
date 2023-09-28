@@ -62,8 +62,9 @@ class TicketsController < ApplicationController
     @train = Train.find_by(id: @ticket[:train_id])
     @train.seats_left = @train.seats_left + 1
     @train.save
-    @review = Review.find_by(train_id: @train[:id])
-    @review.destroy
+    if Review.find_by(train_id: @train[:id])
+      Review.where(:train_id => @train[:id]).destroy_all
+    end
     @ticket.destroy
 
     respond_to do |format|

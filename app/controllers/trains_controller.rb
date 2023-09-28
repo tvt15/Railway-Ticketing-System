@@ -51,12 +51,10 @@ class TrainsController < ApplicationController
   def destroy
     if @review = Review.find_by(train_id: @train[:id])
       Review.where(:train_id => @train[:id]).destroy_all
-
-
     end
+
     if @ticket = Ticket.find_by(train_id: @train[:id])
       Ticket.where(:train_id => @train[:id]).destroy_all
-
     end
     @train.destroy
 

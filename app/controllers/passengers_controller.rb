@@ -50,11 +50,24 @@ class PassengersController < ApplicationController
 
   # DELETE /passengers/1 or /passengers/1.json
   def destroy
+    if Review.find_by(passenger_id: @passenger.id)
+      Review.where(:passenger_id => @passenger.id).destroy_all
+    end
+    if @ticket = Ticket.find_by(passenger_id: @passenger.id)
+      Ticket.where(:passenger_id => @passenger.id).destroy_all
+    end
     @passenger.destroy
     session[:passenger_id] = nil
-    respond_to do |format|
-      format.html { redirect_to root_path, notice: "Passenger was successfully destroyed." }
-      format.json { head :no_content }
+    if session[:admin_id] != nil
+      respond_to do |format|
+        format.html { redirect_to admins_path, notice: "Passenger was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: "Passenger was successfully destroyed." }
+        format.json { head :no_content }
+      end
     end
   end
 

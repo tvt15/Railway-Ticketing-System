@@ -10,6 +10,7 @@
     <th>Ticket price</th>
     <th>Train capacity</th>
     <th>Seats left</th>
+    <th>Average Rating</th>
 
   </tr>
 
@@ -25,6 +26,8 @@
     <td><%= train.ticket_price %></td>
     <td><%= train.train_capacity %></td>
     <td><%= train.seats_left %></td>
+    <%review = Review.where(:train_id => train.id)%>
+    <td><%= review.average(:rating).to_i %></td>
 
     <td><%= link_to 'Show', train %></td>
     <td><%= link_to 'Edit', edit_train_path(train) %></td>

@@ -3,8 +3,13 @@
 <%= render @passenger %>
 
 <div>
-  <%= link_to "Edit this passenger", edit_passenger_path(@passenger) %> |
-  <%= link_to "Back to passengers", passengers_path %>
+  <%= link_to "Edit this passenger", edit_passenger_path(@passenger) %> 
+  <% if session[:passenger_id] != nil %>
+    <%= link_to "Back to passengers", passengers_path %>
+  <%else%>
+    <th><%= link_to 'Back to passengers', passenger_show_route_path %></th>
+  <%end%>
+  
 
   <%= button_to "Destroy this passenger", @passenger, method: :delete %>
 </div>
