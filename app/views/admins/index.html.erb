@@ -2,13 +2,15 @@
 
 <h1>Admins Dashboard</h1>
 
-<div id="admins">
-  <% @admins.each do |admin| %>
-    <%= render admin %>
-  <% end %>
-</div>
+<% @admins.each do |admin| %>
+  <%= render admin %>
+  <td><%= link_to 'Edit profile', edit_admin_path(admin) %></td>
+<% end %>
+ 
 
-<%= link_to "Show Passengers", passenger_show_route_path %>
+
+
+<br><%= link_to "Show Passengers", passenger_show_route_path %>
 <br><%= link_to "Show Trains", train_show_route_path %>
 <br><%= link_to "Show Tickets", ticket_show_route_path %>
 <br><%= link_to "Show Reviews", review_show_route_path %>

@@ -5,5 +5,9 @@
 <br>
 
 <div>
-  <%= link_to "Back to passenger dashboard", passengers_path %>
+<% if session[:passenger_id] != nil %>
+<%= link_to "Back to passengers", passengers_path %>
+<%else%>
+<th><%= link_to 'Back to passengers', passenger_show_route_path %></th>
+<%end%>
 </div>
