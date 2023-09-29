@@ -1,0 +1,66 @@
+<%= stylesheet_link_tag 'application' %>
+<table class="table_class">
+<tr>
+    <th>Train number</th>
+    <th>Departure station</th>
+    <th>Termination station</th>
+    <th>Departure date</th>
+    <th>Departure time</th>
+    <th>Arrival date</th>
+    <th>Arrival time</th>
+    <th>Ticket price</th>
+    <th>Train capacity</th>
+    <th>Seats left</th>
+  </tr>
+  
+  <% if session[:passenger_id] != nil %>
+    <% passenger_user = Passenger.find(session[:passenger_id]) %>
+      <% @result_departstation.each do |train| %>
+        <% if train.seats_left > 0 && train.departure_date > Date.today || (train.departure_date == Date.today && train.departure_time.strftime("%H:%M") > Time.now.strftime("%H:%M"))%>
+          <tr>
+            <td><%= train.train_number %></td>
+            <td><%= train.departure_station %></td>
+            <td><%= train.termination_station %></td>
+            <td><%= train.departure_date %></td>
+            <td><%= train.departure_time.strftime("%H:%M") %></td>
+            <td><%= train.arrival_date %></td>
+            <td><%= train.arrival_time.strftime("%H:%M") %></td>
+            <td><%= train.ticket_price %></td>
+            <td><%= train.train_capacity %></td>
+            <td><%= train.seats_left %></td>
+            <%review = Review.where(:train_id => train.id)%>
+            <td><%= review.average(:rating).to_i %></td>
+            <% if Ticket.find_by(passenger_id: passenger_user.id, train_id:train.id) %>
+              <th> Ticket Booked!! </th>
+            <% else %>
+              <td><%= link_to 'Book train', newticket_path(:train_id => train.id) %></td>
+            <% end %>
+            <td>  <%= button_to "Cancel this ticket", Ticket.find_by(passenger_id: passenger_user.id, train_id:train.id), method: :delete %></td>
+          </tr>
+        <% end %>
+      <% end %>
+      <%= link_to 'Back', ptrain_show_route_path %>
+  <%else%>
+  <% @result_departstation.each do |train| %>
+      <tr>
+        <td><%= train.train_number %></td>
+        <td><%= train.departure_station %></td>
+        <td><%= train.termination_station %></td>
+        <td><%= train.departure_date %></td>
+        <td><%= train.departure_time.strftime("%H:%M") %></td>
+        <td><%= train.arrival_date %></td>
+        <td><%= train.arrival_time.strftime("%H:%M") %></td>
+        <td><%= train.ticket_price %></td>
+        <td><%= train.train_capacity %></td>
+        <td><%= train.seats_left %></td>
+        <%review = Review.where(:train_id => train.id)%>
+        <td><%= review.average(:rating).to_i %></td>
+        <td><%= link_to 'Show', train %></td>
+        <td><%= link_to 'Edit', edit_train_path(train) %></td>
+        <td><%= link_to 'Destroy', train, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  <% end %>
+  <%= link_to 'Back', train_show_route_path %>
+  <%end%>
+</table>
+

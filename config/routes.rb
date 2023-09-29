@@ -10,9 +10,14 @@ Rails.application.routes.draw do
   get 'train_show_route', to: 'admins#train_show', as: 'train_show_route'
   get 'ticket_show_route', to: 'admins#ticket_show', as: 'ticket_show_route'
   get 'review_show_route', to: 'admins#review_show', as: 'review_show_route'
-
+  
+  get 'traindeparture_filter_route', to: "trains#traindeparture_filter", as: "traindeparture_filter_route"
+  get 'traintermination_filter_route', to: "trains#traintermination_filter", as: "traintermination_filter_route"
+  get 'filter_by_rating', to:"trains#filter_by_rating", as: 'filter_by_rating'
+  get 'search_passenger_by_train_number', to:"passengers#search_passenger_by_train_number", as: 'search_passenger_by_train_number'
   get 'search_review_by_train_number', to:"reviews#search_review_by_train_number", as: 'search_review_by_train_number'
   get 'search_review_by_passenger_name', to:"reviews#search_review_by_passenger_name", as: 'search_review_by_passenger_name'
+  get 'pbooking_route', to: 'passengers#pbooking', as: 'pbooking_route'
   get 'booking_show_route', to: 'passengers#booking_show', as: 'booking_show_route'
   get 'ptrain_show_route', to: 'passengers#ptrain_show', as: 'ptrain_show_route'
   get 'pshow_reviews_route', to: 'reviews#pshow_reviews', as: 'pshow_reviews_route'

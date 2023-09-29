@@ -1,0 +1,35 @@
+    <h2>Passenger list who booked train <%=params[:train_number]%></h2>
+    <%= stylesheet_link_tag 'application' %>
+    <table class="table_class">  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Address</th>
+    <th>Credit card</th>
+  </tr>
+
+  <% @result_passenger.each do |pid| %>
+    <td><% passenger = Passenger.find_by(:id => pid) %></td>
+    <tr>
+    <td><%= passenger.name %></td>
+    <td><%= passenger.email %></td>
+    <td><%= passenger.phone %></td>
+    <td><%= passenger.address %></td>
+    <td><%= passenger.credit_card %></td>
+    <td><%= link_to 'Show', passenger %></td>
+    <td><%= link_to 'Edit', edit_passenger_path(passenger) %></td>
+    <td><%= link_to 'Destroy', passenger, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+<br><td>List Passengers by train number</td>
+<%= form_tag(search_passenger_by_train_number_path, :method => "get") do %>
+  <div class="input-group">
+    <%= search_field_tag :train_number, params[:train_number], placeholder: "Enter Passenger Name", class: "form-control" %>
+    <div class="input-group-btn">
+      <%= button_tag "Search", :class =>'btn btn-info glyphicon glyphicon-search', :auth_name => nil %>
+    </div>
+  </div>
+<% end %>
+<br>
+<%= link_to 'Back to dashboard', admins_path %>

@@ -64,6 +64,80 @@ class TrainsController < ApplicationController
     end
   end
 
+  def traindeparture_filter
+    if params[:departure_station].blank?
+      if session[:passenger_id] != nil
+        redirect_to ptrain_show_route_path and return
+      else
+        redirect_to train_show_route_path and return
+      end
+    else
+      @result_departstation = Array.new
+      @trains = Train.all
+      @trains.each do |train|
+        if train.departure_station == params[:departure_station]
+          @result_departstation.append(train)
+        end
+      end
+      puts @result_departstation
+    end
+  end
+
+  def traintermination_filter
+    if params[:termination_station].blank?
+      if session[:passenger_id] != nil
+        redirect_to ptrain_show_route_path and return
+      else
+        redirect_to train_show_route_path and return
+      end
+    else
+      @result_terminatestation = Array.new
+      @trains = Train.all
+      @trains.each do |train|
+        if train.termination_station == params[:termination_station]
+          @result_terminatestation.append(train)
+        end
+      end
+      puts @result_terminatestation
+    end
+  end
+
+  def filter_by_rating
+    if params[:min_rating].blank?
+      redirect_to trains_url and return
+    else
+      @rating = params[:min_rating].to_i
+      # @trains.where("AVG(ratings.score) >=
+      @result_trains = Train.all
+      @result_array, @result_average = filter_trains_on_avg_rating(@result_trains, params[:min_rating].to_i)
+    end
+  end
+
+  def filter_trains_on_avg_rating(trains, min_rating)
+    result_array = Array.new
+    result_average = Array.new
+    trains.each do |train|
+      reviews = Review.all.where(train_id: train.id)
+      total_rating = 0
+      total_size = 0
+      average_rating = 0
+      reviews.each do |review|
+        total_rating += review.rating
+        total_size += 1
+      end
+      if total_size != 0
+        average_rating = total_rating / total_size
+      end
+      if average_rating >= min_rating
+        result_array.append(train)
+        result_average.append(average_rating)
+      end
+
+    end
+
+    return result_array, result_average
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_train

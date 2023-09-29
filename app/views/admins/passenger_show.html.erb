@@ -1,5 +1,6 @@
-<table>
-  <tr>
+<%= stylesheet_link_tag 'application' %>
+<table class="table_class">  
+<tr>
     <th>Name</th>
     <th>Email</th>
     <th>Phone</th>
@@ -20,4 +21,6 @@
   </tr>
 <% end %>
 </table>
+<br>
+<%= link_to "Add Passenger", signup_path %> <br>
 <%= link_to 'Back to dashboard', admins_path %>

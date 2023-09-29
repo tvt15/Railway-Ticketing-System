@@ -1,6 +1,7 @@
 class PassengersController < ApplicationController
   skip_before_action :authorized, only: [:new, :create]
   before_action :set_passenger, only: %i[ show edit update destroy ]
+  # before_action :redirect_to_root, only: [:index]
 
   # GET /passengers or /passengers.json
   def index
@@ -71,7 +72,32 @@ class PassengersController < ApplicationController
     end
   end
 
+  
+# Filter by train number for all reviews 
+def search_passenger_by_train_number
+  if params[:train_number].blank?
+      redirect_to admins_path and return
+  else
+    @result_passenger = Array.new
+    @train = Train.find_by(:train_number => params[:train_number])
+    if @train == nil
+      redirect_to admins_path and return
+    end
+    @tickets = Ticket.all
+    @tickets.each do |ticket|
+      if ticket.train_id == @train.id
+        @result_passenger.append(ticket.passenger_id)
+      end
+    end
+    end
+    puts @result_passenger
+  
+end
+
   private
+    def redirect_to_root
+      redirect_to root_path
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_passenger
       @passenger = Passenger.find(params[:id])

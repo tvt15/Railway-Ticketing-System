@@ -1,4 +1,5 @@
-<table>
+<%= stylesheet_link_tag 'application' %>
+<table class="table_class">
   <tr>
     <th>Train number</th>
     <th>Departure station</th>
@@ -35,5 +36,32 @@
   </tr>
 <% end %>
 </table>
+<br>
+<table>
+<tr>
+<td>
+<%= form_tag(traindeparture_filter_route_path, :method => "get") do %>
+  <div class="input-group">
+    <%= search_field_tag :departure_station, params[:departure_station], placeholder: "Enter Departure Station", class: "form-control" %>
+    <div class="input-group-btn">
+      <%= button_tag "Search", :class =>'btn btn-info glyphicon glyphicon-search', :auth_name => nil %>
+    </div>
+  </div>
+<% end %>
+</td>
+<td>
+<%= form_tag(traintermination_filter_route_path, :method => "get") do %>
+    <div class="input-group">
+      <%= search_field_tag :termination_station, params[:termination_station], placeholder: "Enter Termination Station", class: "form-control" %>
+      <div class="input-group-btn">
+        <%= button_tag "Search", :class =>'btn btn-info glyphicon glyphicon-search', :auth_name => nil %>
+      </div>
+    </div>
+<% end %>
+</td>
+</tr>
+</table>
+<br>
+
 <%= link_to 'Add train', newtrain_path %>
-<%= link_to 'Back to dashboard', admins_path %>
+<br><%= link_to 'Back to dashboard', admins_path %>

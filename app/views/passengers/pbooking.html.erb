@@ -1,4 +1,5 @@
-<table>
+<%= stylesheet_link_tag 'application' %>
+<table class="table_class">
   <tr>
     <th>Train number</th>
     <th>Departure station</th>
@@ -10,12 +11,12 @@
     <th>Ticket price</th>
     <th>Train capacity</th>
     <th>Seats left</th>
-
-  </tr>
-<% passenger_user = Passenger.find(session[:passenger_id]) %>
+    
+ </tr>
+ <% passenger_user = Passenger.find(session[:passenger_id]) %>
 
 <% Train.all.each do |train| %>
-  <% if Ticket.find_by(passenger_id: passenger_user.id, train_id:train.id) && Date.parse(train.departure_date.to_s).past? %>
+  <% if Ticket.find_by(passenger_id: passenger_user.id, train_id:train.id)%>
     <tr>
       <td><%= train.train_number %></td>
       <td><%= train.departure_station %></td>
@@ -27,12 +28,7 @@
       <td><%= train.ticket_price %></td>
       <td><%= train.train_capacity %></td>
       <td><%= train.seats_left %></td>
-      <% @review = Review.find_by(passenger_id: passenger_user.id, train_id:train.id) %>
-      <% if @review %>
-        <th> <%= link_to "Edit your review", edit_review_path(@review, :train_id => train.id) %></th>
-      <% else %>
-        <td>  <%= link_to "Add reviews", newreview_path(:train_id => train.id) %></td>
-      <% end %>  
+      
     </tr>
   <% end %>
 <% end %>
