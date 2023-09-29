@@ -16,15 +16,15 @@
 <% passenger_user = Passenger.find(session[:passenger_id]) %>
 
 <% Train.all.each do |train| %>
-  <% if Ticket.find_by(passenger_id: passenger_user.id, train_id:train.id) && Date.parse(train.departure_date.to_s).past? %>
+  <% if Ticket.find_by(passenger_id: passenger_user.id, train_id:train.id) && train.departure_date<Date.today || (train.departure_date==Date.today && train.departure_time<Time.now) %>
     <tr>
       <td><%= train.train_number %></td>
       <td><%= train.departure_station %></td>
       <td><%= train.termination_station %></td>
       <td><%= train.departure_date %></td>
-      <td><%= train.departure_time %></td>
+      <td><%= train.departure_time.strftime("%H:%M") %></td>
       <td><%= train.arrival_date %></td>
-      <td><%= train.arrival_time %></td>
+      <td><%= train.arrival_time.strftime("%H:%M") %></td>
       <td><%= train.ticket_price %></td>
       <td><%= train.train_capacity %></td>
       <td><%= train.seats_left %></td>

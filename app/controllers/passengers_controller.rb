@@ -1,6 +1,7 @@
 class PassengersController < ApplicationController
   skip_before_action :authorized, only: [:new, :create]
   before_action :set_passenger, only: %i[ show edit update destroy ]
+ 
   # before_action :redirect_to_root, only: [:index]
 
   # GET /passengers or /passengers.json
@@ -10,6 +11,9 @@ class PassengersController < ApplicationController
 
   # GET /passengers/1 or /passengers/1.json
   def show
+    if @passenger.id != session[:passenger_id]
+      redirect_to root_path, error: "Not allowed to access this page"
+    end
   end
 
   # GET /passengers/new

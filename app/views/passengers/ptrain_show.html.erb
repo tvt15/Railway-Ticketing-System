@@ -25,9 +25,9 @@
       <td><%= train.departure_station %></td>
       <td><%= train.termination_station %></td>
       <td><%= train.departure_date %></td>
-      <td><%= train.departure_time %></td>
+      <td><%= train.departure_time.strftime("%H:%M") %></td>
       <td><%= train.arrival_date %></td>
-      <td><%= train.arrival_time %></td>
+      <td><%= train.arrival_time.strftime("%H:%M") %></td>
       <td><%= train.ticket_price %></td>
       <td><%= train.train_capacity %></td>
       <td><%= train.seats_left %></td>
