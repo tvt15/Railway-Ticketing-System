@@ -8,8 +8,8 @@ class Admin < ApplicationRecord
     validates :password_digest, presence: true, allow_blank: true
     validates :address, presence: true
     validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP },unless: -> { email.blank? }
-    validates :phone, uniqueness: true, format: { with: /\A\d{10}\z/, message: 'should be 10 digit' },unless: -> { phone.blank? }
-    validates :credit_number, uniqueness: true , format: { with: /\A\d{16}\z/, message: 'should be 16 digit' },unless: -> { credit_number.blank? }
+    validates :phone, format: { with: /\A\d{10}\z/, message: 'should be 10 digit' },unless: -> { phone.blank? }
+    validates :credit_number, format: { with: /\A\d{16}\z/, message: 'should be 16 digit' },unless: -> { credit_number.blank? }
     validates :name, presence: true
 
 end
