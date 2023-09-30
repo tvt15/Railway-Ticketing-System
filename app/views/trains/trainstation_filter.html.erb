@@ -11,11 +11,13 @@
     <th>Ticket price</th>
     <th>Train capacity</th>
     <th>Seats left</th>
+    <th>Average Rating</th>
+
   </tr>
   
   <% if session[:passenger_id] != nil %>
     <% passenger_user = Passenger.find(session[:passenger_id]) %>
-      <% @result_departstation.each do |train| %>
+      <% @result_station.each do |train| %>
         <% if train.seats_left > 0 && train.departure_date > Date.today || (train.departure_date == Date.today && train.departure_time.strftime("%H:%M") > Time.now.strftime("%H:%M"))%>
           <tr>
             <td><%= train.train_number %></td>
@@ -39,9 +41,8 @@
           </tr>
         <% end %>
       <% end %>
-      <%= link_to 'Back', ptrain_show_route_path %>
   <%else%>
-  <% @result_departstation.each do |train| %>
+  <% @result_station.each do |train| %>
       <tr>
         <td><%= train.train_number %></td>
         <td><%= train.departure_station %></td>
@@ -60,7 +61,12 @@
         <td><%= link_to 'Destroy', train, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
   <% end %>
-  <%= link_to 'Back', train_show_route_path %>
   <%end%>
 </table>
+<br>
+<% if session[:passenger_id] != nil %>
 
+<%= link_to 'Back', ptrain_show_route_path %>
+<%else%>
+<%= link_to 'Back', train_show_route_path %>
+<%end%>

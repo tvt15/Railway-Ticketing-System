@@ -64,43 +64,43 @@ class TrainsController < ApplicationController
     end
   end
 
-  def traindeparture_filter
-    if params[:departure_station].blank?
+  def trainstation_filter
+    if params[:departure_station].blank? && params[:termination_station].blank?
       if session[:passenger_id] != nil
         redirect_to ptrain_show_route_path and return
       else
         redirect_to train_show_route_path and return
       end
-    else
-      @result_departstation = Array.new
+    elsif params[:termination_station].blank?
+      @result_station = Array.new
       @trains = Train.all
       @trains.each do |train|
         if train.departure_station == params[:departure_station]
-          @result_departstation.append(train)
+          @result_station.append(train)
         end
       end
-      puts @result_departstation
-    end
-  end
-
-  def traintermination_filter
-    if params[:termination_station].blank?
-      if session[:passenger_id] != nil
-        redirect_to ptrain_show_route_path and return
-      else
-        redirect_to train_show_route_path and return
-      end
-    else
-      @result_terminatestation = Array.new
+      puts @result_station
+    elsif params[:departure_station].blank?
+      @result_station = Array.new
       @trains = Train.all
       @trains.each do |train|
         if train.termination_station == params[:termination_station]
-          @result_terminatestation.append(train)
+          @result_station.append(train)
         end
       end
-      puts @result_terminatestation
+      puts @result_station
+    else
+      @result_station = Array.new
+      @trains = Train.all
+      @trains.each do |train|
+        if train.termination_station == params[:termination_station] && train.departure_station == params[:departure_station]
+          @result_station.append(train)
+        end
+      end
+      puts @result_station
     end
   end
+
 
   def filter_by_rating
     if params[:min_rating].blank?

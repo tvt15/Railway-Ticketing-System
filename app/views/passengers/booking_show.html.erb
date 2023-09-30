@@ -16,7 +16,7 @@
 <% passenger_user = Passenger.find(session[:passenger_id]) %>
 
 <% Train.all.each do |train| %>
-  <% if Ticket.find_by(passenger_id: passenger_user.id, train_id:train.id) && train.departure_date<Date.today || (train.departure_date==Date.today && train.departure_time<Time.now) %>
+  <% if Ticket.find_by(passenger_id: passenger_user.id, train_id:train.id) && train.departure_date<Date.today || (train.departure_date == Date.today && train.departure_time.strftime("%H:%M")<Time.now.strftime("%H:%M")) %>
     <tr>
       <td><%= train.train_number %></td>
       <td><%= train.departure_station %></td>
