@@ -3,7 +3,7 @@ class Passenger < ApplicationRecord
     validates :phone, format: { with: /\A\d{10}\z/, message: 'should be 10 digit' },unless: -> { phone.blank? }
     validates :credit_card, format: { with: /\A\d{16}\z/, message: 'should be 16 digit' },unless: -> { credit_card.blank? }
     validates :name, presence: true
-    validates :password_digest, presence: true, allow_blank: true
+    validates :password_digest, presence: true, allow_blank: true, length: { is: 8 },format: { with: /\A.{8}\z/, message: "must be 8 characters long" }
     validates :address , presence: true
     has_secure_password
     belongs_to :admin
