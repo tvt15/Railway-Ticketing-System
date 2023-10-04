@@ -75,7 +75,7 @@ class TrainsController < ApplicationController
       @result_station = Array.new
       @trains = Train.all
       @trains.each do |train|
-        if train.departure_station == params[:departure_station]
+        if train.departure_station.upcase == params[:departure_station].upcase
           @result_station.append(train)
         end
       end
@@ -84,7 +84,7 @@ class TrainsController < ApplicationController
       @result_station = Array.new
       @trains = Train.all
       @trains.each do |train|
-        if train.termination_station == params[:termination_station]
+        if train.termination_station.upcase == params[:termination_station].upcase
           @result_station.append(train)
         end
       end
@@ -93,7 +93,7 @@ class TrainsController < ApplicationController
       @result_station = Array.new
       @trains = Train.all
       @trains.each do |train|
-        if train.termination_station == params[:termination_station] && train.departure_station == params[:departure_station]
+        if train.termination_station.upcase == params[:termination_station].upcase && train.departure_station.upcase == params[:departure_station].upcase
           @result_station.append(train)
         end
       end

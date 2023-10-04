@@ -4,6 +4,7 @@ class ReviewsController < ApplicationController
   # GET /reviews or /reviews.json
   def index
     @reviews = Review.all
+    @admins = Admin.all
   end
 
   # GET /reviews/1 or /reviews/1.json
@@ -22,6 +23,11 @@ class ReviewsController < ApplicationController
   def edit
     if @train.nil?
       @train = Train.find(params[:train_id])
+    end
+    if @review.passenger_id == session[:passenger_id] || session[:admin_id] != nil
+
+    else
+      redirect_to root_path, error: "Not allowed to access this page"
     end
   end
 

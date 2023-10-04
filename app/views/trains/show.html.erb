@@ -3,8 +3,10 @@
 <%= render @train %>
 
 <div>
-  <%= link_to "Edit this train", edit_train_path(@train) %> |
-  <%= link_to "Back to trains", trains_path %>
+<%= link_to "Edit this train", edit_train_path(@train) %> |
+  <% if session[:admin_id] != nil %>
+    <%= link_to "Back to trains", train_show_route_path %>
+  <%end%>
 
   <%= button_to "Destroy this train", @train, method: :delete %>
 </div>

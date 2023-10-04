@@ -7,11 +7,14 @@ class PassengersController < ApplicationController
   # GET /passengers or /passengers.json
   def index
     @passengers = Passenger.all
+    @admins = Admin.all
   end
 
   # GET /passengers/1 or /passengers/1.json
   def show
-    if @passenger.id != session[:passenger_id]
+    if @passenger.id == session[:passenger_id] || session[:admin_id] != nil
+    
+    else
       redirect_to root_path, error: "Not allowed to access this page"
     end
   end

@@ -25,23 +25,32 @@ class TicketsController < ApplicationController
 
   # POST /tickets or /tickets.json
   def create
-    pid = Passenger.find(session[:passenger_id])
-    @ticket = Ticket.new(ticket_params)
-    @ticket.passenger_id = pid.id
-    @ticket.confirmation_number = Array.new(10){[*"A".."Z", *"0".."9"].sample}.join
-    @train = Train.find_by(id: @ticket[:train_id])
-    @train.seats_left = @train.seats_left - 1
-    @train.save
-
-    respond_to do |format|
-      if @ticket.save
-        format.html { redirect_to ticket_url(@ticket), notice: "Ticket was booked successfully." }
-        format.json { render ticket_url(@ticket), status: :created, location: @ticket }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
-      end
+    puts "#######"
+    
+    p = params["ticket"][:non_model_ticket_cnt]
+    if session[:passenger_id] != nil
+      pid = Passenger.find(session[:passenger_id])
+    else
+      pid = Admin.find(session[:admin_id])
     end
+    p.to_i.times do
+      @ticket = Ticket.new(ticket_params)
+      @ticket.booked_by = pid.id
+      @ticket.confirmation_number = Array.new(10){[*"A".."Z", *"0".."9"].sample}.join
+      @train = Train.find_by(id: @ticket[:train_id])
+      @train.seats_left = @train.seats_left - 1
+      @train.save
+      @ticket.save
+    end
+      respond_to do |format|
+        if @ticket.save
+          format.html { redirect_to ticket_url(@ticket), notice: "Ticket was booked successfully." }
+          format.json { render ticket_url(@ticket), status: :created, location: @ticket }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @ticket.errors, status: :unprocessable_entity }
+        end
+      end
   end
 
   # PATCH/PUT /tickets/1 or /tickets/1.json
@@ -81,6 +90,6 @@ class TicketsController < ApplicationController
 
     #Only allow a list of trusted parameters through.
     def ticket_params
-      params.require(:ticket).permit(:train_id)   
+      params.require(:ticket).permit(:train_id, :passenger_id)   
     end
 end
