@@ -16,7 +16,7 @@
   </div>
 
   <div>
-    <%= form.label :passenger_id, "Ticket Count", style: "display: block" %>
+    <%= form.label :passenger_id, "Book for", style: "display: block" %>
     <%= form.select :passenger_id, options_for_select((Passenger.all).map { |passenger| [passenger.name, passenger.id] }) %>
   </div>
   

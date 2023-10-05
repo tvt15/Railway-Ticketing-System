@@ -1,11 +1,11 @@
 <p style="color: green"><%= notice %></p>
 
-
+<%=render @ticket%>
 <div>
 <% if session[:passenger_id] != nil %>
 <%= link_to "Back to trains", ptrain_show_route_path %>
 <%else%>
-<th><%= link_to 'Back to trains', train_show_route_path %></th>
+<th><%= link_to 'Back to tickets', ticket_show_route_path %></th>
 <%end%>
 
 

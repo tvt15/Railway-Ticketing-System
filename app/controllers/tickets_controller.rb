@@ -29,13 +29,13 @@ class TicketsController < ApplicationController
     
     p = params["ticket"][:non_model_ticket_cnt]
     if session[:passenger_id] != nil
-      pid = Passenger.find(session[:passenger_id])
+      pid = Passenger.find(session[:passenger_id]).id
     else
-      pid = Admin.find(session[:admin_id])
+      pid = "admin"
     end
     p.to_i.times do
       @ticket = Ticket.new(ticket_params)
-      @ticket.booked_by = pid.id
+      @ticket.booked_by = pid
       @ticket.confirmation_number = Array.new(10){[*"A".."Z", *"0".."9"].sample}.join
       @train = Train.find_by(id: @ticket[:train_id])
       @train.seats_left = @train.seats_left - 1

@@ -33,7 +33,15 @@ class ReviewsController < ApplicationController
 
   # POST /reviews or /reviews.json
   def create
-    pid = Passenger.find(session[:passenger_id])
+    if session[:passenger_id] != nil
+      pid = Passenger.find(session[:passenger_id])
+      @result = "Passenger"  
+    else
+      pid = Admin.find(session[:admin_id])
+      @result = "Admin"
+      puts "$$$$heloooo"
+    end
+    puts pid.id
     @review = Review.new(review_params)
     @review.passenger_id = pid.id
     @train = Train.find_by(id: @review[:train_id])
