@@ -1,5 +1,10 @@
 <h1>New Ticket</h1>
-<h3>Ticket price : <%=@train.ticket_price %></h3>
-<%= render 'form', ticket: @ticket %>
 
-<td><%= link_to 'Back to trains', ptrain_show_route_path %></td>
+
+<%= render 'form', ticket: @ticket %>
+<br>
+<% if session[:passenger_id] != nil %>
+    <td><%= link_to 'Back to trains', ptrain_show_route_path %></td>
+    <%else%>
+    <th><%= link_to 'Back to trains', train_show_route_path %></th>
+    <%end%>

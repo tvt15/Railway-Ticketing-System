@@ -11,7 +11,11 @@
   <tr>
     <td><%= review.rating %></td>
     <td><%= review.feedback %></td>
+    <%if review.passenger_id == 1 && @result == "Admin"%>
+    <td><%= Admin.find_by(id: session[:admin_id]).name %></td>
+    <%else%>
     <td><%= Passenger.find(review.passenger_id).name %></td>
+    <%end%>
     <td><%= Train.find(review.train_id).train_number %></td>
     <td><%= link_to 'Show', review %></td>
     <th> <%= link_to "Edit", edit_review_path(review, :train_id => review.train_id) %></th>
@@ -39,4 +43,7 @@
     </div>
   </div>
 <% end %>
+
+
+
 <%= link_to 'Back to dashboard', admins_path %>

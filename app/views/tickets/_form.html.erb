@@ -9,12 +9,42 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.hidden_field :train_id, value: @train.id %>
+  <div>
+    <%= form.label :non_model_ticket_cnt, "Ticket Count", style: "display: block" %>
+    <%= form.select :non_model_ticket_cnt, options_for_select((0..@train.seats_left).map { |count| [count, count] }) %>
+    <p>Total Price: <span id="displaySelectedTicketCount">None</span></p>  
   </div>
 
+  <div>
+    <%= form.label :passenger_id, "Book for", style: "display: block" %>
+    <%= form.select :passenger_id, options_for_select((Passenger.all).map { |passenger| [passenger.name, passenger.id] }) %>
+  </div>
+  
+  <div class="field">
+    <%= form.hidden_field :train_id, value: @train.id %>
+    <%= form.hidden_field :ticket_price, value: @train.ticket_price %>
+  </div>
+<br>
   <div class="actions">
     <%= form.submit 'Book Ticket' %>
   </div>
+
+  <script>
+  const selectField = document.querySelector('select[name="ticket[non_model_ticket_cnt]"]') ; 
+  const displaySelectedTicketCount = document.getElementById('displaySelectedTicketCount');
+  const ticketPrice = parseFloat(document.querySelector('input[name="ticket[ticket_price]"]').value);
+  selectField.addEventListener('change', function () {
+    const selectedCount = selectField.value;
+
+    if (!isNaN(selectedCount)) {
+      const result = selectedCount * ticketPrice;
+
+      displaySelectedTicketCount.textContent = result;
+    } else {
+      displaySelectedTicketCount.textContent = 'Invalid input';
+    }
+    
+  
+  });
+</script>
 <% end %>

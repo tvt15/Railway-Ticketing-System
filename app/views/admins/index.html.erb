@@ -10,7 +10,7 @@
 <br><td>List Passengers by train number</td>
 <%= form_tag(search_passenger_by_train_number_path, :method => "get") do %>
   <div class="input-group">
-    <%= search_field_tag :train_number, params[:train_number], placeholder: "Enter Passenger Name", class: "form-control" %>
+    <%= search_field_tag :train_number, params[:train_number], placeholder: "Enter Train Number", class: "form-control" %>
     <div class="input-group-btn">
       <%= button_tag "Search", :class =>'btn btn-info glyphicon glyphicon-search', :auth_name => nil %>
     </div>

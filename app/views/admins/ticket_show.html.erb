@@ -4,15 +4,21 @@
     <th>Passenger ID</th>
     <th>Train ID</th>
     <th>Confirmation Number</th>
+    <th>Booked By</th>
     <th>Booked on</th>
   </tr>
 
 <% Ticket.all.each do |ticket| %>
   <tr>
-    <td><%= ticket.passenger_id %></td>
-    <td><%= ticket.train_id %></td> 
-    <td><%= ticket.confirmation_number %></td>
-    <td><%= ticket.created_at %></td>
+  <td><%= Passenger.find_by(id: ticket.passenger_id).name %></td>
+  <td><%= Train.find_by(id: ticket.train_id).train_number %></td> 
+  <td><%= ticket.confirmation_number %></td>
+  <% if ticket.booked_by == "admin" %>
+  <td><%= Admin.find_by(id: session[:admin_id]).name %></td>
+  <%else%>
+  <td><%= Passenger.find_by(id: ticket.booked_by.to_i).name %></td>
+  <%end%>
+  <td><%= ticket.created_at %></td>
     <td><%= link_to 'Show', ticket %></td>
     <td><%= button_to "Destroy", Ticket.find_by(passenger_id: ticket.passenger_id, train_id:ticket.train_id), method: :delete %></td>
   </tr>

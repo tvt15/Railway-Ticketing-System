@@ -30,10 +30,13 @@
     <%review = Review.where(:train_id => train.id)%>
     <td><%= review.average(:rating).to_i %></td>
 
+    <td><%= link_to 'Book train', newticket_path(:train_id => train.id) %></td>
+    <td>  <%= link_to "Add reviews", newreview_path(:train_id => train.id) %></td>
     <td><%= link_to 'Show', train %></td>
     <td><%= link_to 'Edit', edit_train_path(train) %></td>
     <td><%= link_to 'Destroy', train, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+  
+    </tr>
 <% end %>
 </table>
 <br>
