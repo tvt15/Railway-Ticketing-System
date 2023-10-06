@@ -11,7 +11,7 @@
   <% end %>
   <div>
     <%= form.label :non_model_ticket_cnt, "Ticket Count", style: "display: block" %>
-    <%= form.select :non_model_ticket_cnt, options_for_select((0..@train.seats_left).map { |count| [count, count] }) %>
+    <%= form.select :non_model_ticket_cnt, options_for_select((1..@train.seats_left).map { |count| [count, count] }) %>
     <p>Total Price: <span id="displaySelectedTicketCount">None</span></p>  
   </div>
 
