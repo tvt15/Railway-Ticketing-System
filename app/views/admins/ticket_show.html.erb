@@ -1,8 +1,8 @@
 <%= stylesheet_link_tag 'application' %>
 <table class="table_class">  
   <tr>
-    <th>Passenger ID</th>
-    <th>Train ID</th>
+    <th>Passenger Name</th>
+    <th>Train Number</th>
     <th>Confirmation Number</th>
     <th>Booked By</th>
     <th>Booked on</th>
@@ -19,7 +19,6 @@
   <td><%= Passenger.find_by(id: ticket.booked_by.to_i).name %></td>
   <%end%>
   <td><%= ticket.created_at %></td>
-    <td><%= link_to 'Show', ticket %></td>
     <td><%= button_to "Destroy", Ticket.find_by(passenger_id: ticket.passenger_id, train_id:ticket.train_id), method: :delete %></td>
   </tr>
 <% end %>

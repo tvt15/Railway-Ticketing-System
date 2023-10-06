@@ -24,10 +24,8 @@ class TicketsController < ApplicationController
   end
 
   # POST /tickets or /tickets.json
-  def create
-    puts "#######"
-    
-    p = params["ticket"][:non_model_ticket_cnt]
+  def create   
+    p = params["ticket"][:non_model_ticket_cnt] 
     if session[:passenger_id] != nil
       pid = Passenger.find(session[:passenger_id]).id
     else

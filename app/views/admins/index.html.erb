@@ -1,12 +1,15 @@
 <p style="color: green"><%= notice %></p>
+
 <% admin_user = Admin.find(session[:admin_id]) %>
 <h1>Admins Dashboard</h1>
 
   <td><%= link_to 'Edit profile', edit_admin_path(admin_user) %></td>
 
- 
-
-<br>
+  <br><%= link_to "Show Passengers", passenger_show_route_path %>
+  <br><%= link_to "Show Trains", train_show_route_path %> 
+  <br><%= link_to "Show Tickets", ticket_show_route_path %>
+  <br><%= link_to "Show Reviews", review_show_route_path %>
+<br >
 <br><td>List Passengers by train number</td>
 <%= form_tag(search_passenger_by_train_number_path, :method => "get") do %>
   <div class="input-group">
@@ -15,12 +18,8 @@
       <%= button_tag "Search", :class =>'btn btn-info glyphicon glyphicon-search', :auth_name => nil %>
     </div>
   </div>
-<% end %>
-
+<% end %>  
+ 
 <br>
-<br><%= link_to "Show Passengers", passenger_show_route_path %>
-<br><%= link_to "Show Trains", train_show_route_path %>
-<br><%= link_to "Show Tickets", ticket_show_route_path %>
-<br><%= link_to "Show Reviews", review_show_route_path %>
-<br><br><%= link_to 'Logout', logout_path %>
+<%= link_to 'Logout', logout_path %>
 

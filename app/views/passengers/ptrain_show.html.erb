@@ -39,7 +39,7 @@
   <% end %>
 <% end %>
 </table>
-
+<br>
 <%= form_tag(trainstation_filter_route_path, :method => "get") do %>
     <div class="input-group">
       <%= search_field_tag :departure_station, params[:departure_station], placeholder: "Enter Departure Station", class: "form-control" %>
@@ -50,12 +50,13 @@
     </div>
     <% end %>
 
-
+    <br>
 
 <%= form_tag(filter_by_rating_path, :method => "get") do %>
     <%= label_tag :min_rating %>
     <%= select_tag :min_rating, options_for_select([5, 4, 3, 2, 1].map { |n| [n, n] }, params[:min_rating]), include_blank: true %>
     <%= submit_tag "Filter by Rating" %>
   <% end %>
+  <br>
 
 <%= link_to 'Back', passengers_path %>

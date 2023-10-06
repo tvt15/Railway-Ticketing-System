@@ -12,23 +12,19 @@
   <% end %>
 
   <div>
-    <%= form.label :username, style: "display: block" %>
-    
-    <%=@admin.username%>
+    Username: <%=@admin.username%>
   </div>
-
+<br>
   <div>
-    <%= form.label :name, style: "display: block" %>
-    <%=@admin.name%>
+    Name: <%=@admin.name%>
 
   </div>
-
+<br>
   <div>
-    <%= form.label :email, style: "display: block" %>
-    <%=@admin.email%>
+    Email: <%=@admin.email%>
 
   </div>
-
+<br>
   <div>
     <%= form.label :phone, style: "display: block" %>
     <%= form.text_field :phone %>
